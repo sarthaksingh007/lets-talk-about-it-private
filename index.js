@@ -3,6 +3,8 @@ const cors = require('cors'); //we use cors for sending mssgs to servers
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 
+const port = 3000 || process.env.PORT;
+
 //connect mongoDB
 require('./dbConnect');
 const tokenModel = require('./schema');
@@ -30,6 +32,7 @@ app.get('/', (req, res) => {
 });
 
 const { v4: uuidv4 } = require('uuid'); //thats create unique userid
+const { env } = require('process');
 //take user data from site make data object having username and user id  and send data  to index.js
 app.post('/session', (req, res) => {
     let data = {
@@ -137,6 +140,6 @@ io.on('connection', async (socket) => {
     });
 });
 
-server.listen(5000, () => {
-    console.log("server is running on port 3000...");
+server.listen(port, () => {
+    console.log(`server is running on port ${port}`);
 });
